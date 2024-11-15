@@ -154,7 +154,7 @@ class Permission extends Model
             'keys' => [
                 'create' => 'Allows a user to create additional files and folders via the Panel or direct upload.',
                 'read' => 'Allows a user to view the contents of a directory, but not view the contents of or download files.',
-                'read-content' => 'Allows a user to view the contents of a given file. This will also allow the user to download files.',
+                'read-content' => 'Allows a user to view the contents of a given file.',
                 'update' => 'Allows a user to update the contents of an existing file or directory.',
                 'delete' => 'Allows a user to delete files or directories.',
                 'archive' => 'Allows a user to archive the contents of a directory as well as decompress existing archives on the system.',

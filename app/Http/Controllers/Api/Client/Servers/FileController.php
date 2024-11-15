@@ -17,6 +17,7 @@ use App\Http\Requests\Api\Client\Servers\Files\ListFilesRequest;
 use App\Http\Requests\Api\Client\Servers\Files\ChmodFilesRequest;
 use App\Http\Requests\Api\Client\Servers\Files\DeleteFileRequest;
 use App\Http\Requests\Api\Client\Servers\Files\RenameFileRequest;
+use App\Http\Requests\Api\Client\Servers\Files\DownloadFileRequest;
 use App\Http\Requests\Api\Client\Servers\Files\CreateFolderRequest;
 use App\Http\Requests\Api\Client\Servers\Files\CompressFilesRequest;
 use App\Http\Requests\Api\Client\Servers\Files\DecompressFilesRequest;
@@ -74,7 +75,7 @@ class FileController extends ClientApiController
      *
      * @throws \Throwable
      */
-    public function download(GetFileContentsRequest $request, Server $server): array
+    public function download(DownloadFileRequest $request, Server $server): array
     {
         $token = $this->jwtService
             ->setExpiresAt(CarbonImmutable::now()->addMinutes(15))
