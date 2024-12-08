@@ -11,6 +11,7 @@ use App\Models\Server;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Filament\Pages\Page;
+use Filament\Support\Enums\ActionSize;
 
 class Console extends Page
 {
@@ -57,15 +58,27 @@ class Console extends Page
         return [
             Action::make('start')
                 ->color('primary')
+                ->size(ActionSize::ExtraLarge)
                 ->action(fn () => $this->dispatch('setServerState', state: 'start'))
                 ->disabled(fn () => $server->isInConflictState()),
             Action::make('restart')
                 ->color('gray')
+                ->size(ActionSize::ExtraLarge)
                 ->action(fn () => $this->dispatch('setServerState', state: 'restart'))
                 ->disabled(fn () => $server->isInConflictState() || $server->retrieveStatus() == 'offline'),
             Action::make('stop')
                 ->color('danger')
+                ->size(ActionSize::ExtraLarge)
                 ->action(fn () => $this->dispatch('setServerState', state: 'stop'))
+                ->disabled(fn () => $server->isInConflictState() || $server->retrieveStatus() == 'offline'),
+            Action::make('kill')
+                ->color('danger')
+                ->requiresConfirmation()
+                ->modalHeading('Do you wish to kill this server?')
+                ->modalDescription('This can result in data corruption and/or data loss!')
+                ->modalSubmitActionLabel('Kill Server')
+                ->size(ActionSize::ExtraLarge)
+                ->action(fn () => $this->dispatch('setServerState', state: 'kill'))
                 ->disabled(fn () => $server->isInConflictState() || $server->retrieveStatus() == 'offline'),
         ];
     }

@@ -70,7 +70,7 @@ class EditFiles extends Page
                     ->footerActions([
                         Action::make('save')
                             ->label('Save Changes')
-                            ->authorize(auth()->user()->can(Permission::ACTION_FILE_UPDATE, $server))
+                            ->authorize(fn () => auth()->user()->can(Permission::ACTION_FILE_UPDATE, $server))
                             ->icon('tabler-device-floppy')
                             ->keyBindings('mod+s')
                             ->action(function () use ($server) {
@@ -102,6 +102,7 @@ class EditFiles extends Page
                     ->schema([
                         MonacoEditor::make('editor')
                             ->label('')
+                            ->placeholderText('')
                             ->formatStateUsing(function () use ($server) {
                                 // @phpstan-ignore-next-line
                                 return app(DaemonFileRepository::class)

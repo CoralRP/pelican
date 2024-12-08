@@ -540,12 +540,12 @@ class ListFiles extends ListRecords
                 ]),
             HeaderAction::make('search')
                 ->authorize(fn () => auth()->user()->can(Permission::ACTION_FILE_READ, $server))
-                ->hidden() // TODO: wait for wings pr (https://github.com/pelican-dev/wings/pull/44)
                 ->label('Global Search')
                 ->modalSubmitActionLabel('Search')
                 ->form([
                     TextInput::make('searchTerm')
                         ->placeholder('Enter a search term, e.g. *.txt')
+                        ->regex('/^[^*]*\*?[^*]*$/')
                         ->minLength(3),
                 ])
                 ->action(fn ($data) => redirect(SearchFiles::getUrl([
