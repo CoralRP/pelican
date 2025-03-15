@@ -11,6 +11,11 @@ class DownloadFileRequest extends ClientApiRequest implements ClientPermissionsR
     /**
      * Checks that the authenticated user is allowed to download files on the server.
      */
+    public function authorize(): bool
+    {
+        return $this->user()->can(Permission::ACTION_FILE_SFTP, $this->parameter('server', Server::class));
+    }
+
     public function permission(): string
     {
         return Permission::ACTION_FILE_SFTP;
