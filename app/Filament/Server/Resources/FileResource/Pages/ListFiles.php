@@ -192,7 +192,7 @@ class ListFiles extends ListRecords
                             return redirect(ListFiles::getUrl(['path' => $this->path]));
                         }),
                     Action::make('download')
-                        ->authorize(fn () => auth()->user()->can(Permission::ACTION_FILE_READ_CONTENT, $server))
+                        ->authorize(fn () => auth()->user()->can(Permission::SFTP, $server))
                         ->disabled($this->isDisabled)
                         ->label('Download')
                         ->icon('tabler-download')
